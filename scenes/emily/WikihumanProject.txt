@@ -1,0 +1,6 @@
+Source geometry and texture data are from the Wikihuman Project:
+http://gl.ict.usc.edu/Research/DigitalEmily2/
+
+Source data are for research and illustration purposes only,
+not to transfer or redistribute, and not for commercial purposes
+or for resale.
