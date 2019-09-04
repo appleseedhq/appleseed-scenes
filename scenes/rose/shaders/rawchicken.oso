@@ -1,0 +1,118 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.10.5
+# options: -O2 -o rawchicken.oso
+surface rawchicken
+global	normal	N	%read{1,23} %write{2147483647,-1}
+global	closure color	Ci	%read{22,30} %write{2,30}
+local	int	depth	%read{9,9} %write{0,0}
+local	float	k1	%read{13,24} %write{3,3}
+local	float	k2	%read{16,25} %write{4,4}
+local	float	k3	%read{20,26} %write{5,5}
+local	color	c1	%read{12,24} %write{6,6}
+local	color	c2	%read{15,25} %write{7,7}
+local	color	c3	%read{19,27} %write{8,8}
+temp	int	$tmp1	%read{2147483647,-1} %write{0,0}
+const	string	$const1	"path:ray_depth"		%read{0,0} %write{2147483647,-1}
+temp	closure color	$tmp2	%read{2,2} %write{1,1}
+const	vector	$const2	0 0 0		%read{1,1} %write{2147483647,-1}
+const	float	$const3	0.400000006		%read{1,1} %write{2147483647,-1}
+const	float	$const4	0		%read{1,1} %write{2147483647,-1}
+const	float	$const5	1.29999995		%read{1,19} %write{2147483647,-1}
+const	string	$const6	"as_glossy"		%read{1,1} %write{2147483647,-1}
+const	float	$const7	0.600000024		%read{2,2} %write{2147483647,-1}
+const	float	$const8	0.150000006		%read{3,11} %write{2147483647,-1}
+const	float	$const9	0.550000012		%read{4,4} %write{2147483647,-1}
+const	float	$const10	0.449999988		%read{5,5} %write{2147483647,-1}
+const	color	$const11	0.400000006 0 0		%read{6,6} %write{2147483647,-1}
+const	color	$const12	0.5 0.300000012 0.0500000007		%read{7,7} %write{2147483647,-1}
+const	color	$const13	0 0.5 0.850000024		%read{8,8} %write{2147483647,-1}
+const	int	$const14	0		%read{9,9} %write{2147483647,-1}
+temp	int	$tmp4	%read{10,10} %write{9,9}
+temp	closure color	$tmp5	%read{13,13} %write{12,12}
+const	string	$const15	"normalized_diffusion"		%read{12,19} %write{2147483647,-1}
+temp	color	$tmp6	%read{12,12} %write{11,11}
+const	string	$const16	"as_subsurface"		%read{12,19} %write{2147483647,-1}
+temp	closure color	$tmp7	%read{17,17} %write{13,13}
+temp	closure color	$tmp8	%read{16,16} %write{15,15}
+const	float	$const17	0.0500000007		%read{14,14} %write{2147483647,-1}
+temp	color	$tmp9	%read{15,15} %write{14,14}
+temp	closure color	$tmp10	%read{17,17} %write{16,16}
+temp	closure color	$tmp11	%read{21,21} %write{17,17}
+temp	closure color	$tmp12	%read{20,20} %write{19,19}
+const	float	$const18	0.00999999978		%read{18,18} %write{2147483647,-1}
+temp	color	$tmp13	%read{19,19} %write{18,18}
+temp	closure color	$tmp14	%read{21,21} %write{20,20}
+temp	closure color	$tmp15	%read{22,22} %write{21,21}
+temp	closure color	$tmp16	%read{29,29} %write{23,23}
+const	string	$const19	"diffuse"		%read{23,23} %write{2147483647,-1}
+temp	color	$tmp17	%read{28,28} %write{24,24}
+temp	color	$tmp18	%read{26,26} %write{25,25}
+temp	color	$tmp19	%read{27,27} %write{26,26}
+temp	color	$tmp20	%read{28,28} %write{27,27}
+temp	color	$tmp21	%read{29,29} %write{28,28}
+temp	closure color	$tmp22	%read{30,30} %write{29,29}
+code ___main___
+# rawchicken.osl:4
+#     getattribute("path:ray_depth", depth);
+	getattribute	$tmp1 $const1 depth 	%filename{"rawchicken.osl"} %line{4} %argrw{"wrw"}
+# rawchicken.osl:6
+#     Ci = 0.6 * as_glossy(N, vector(0.0), 0.4, 0.0, 1.3);
+	closure		$tmp2 $const6 N $const2 $const3 $const4 $const5 	%line{6} %argrw{"wrrrrrr"}
+	mul		Ci $tmp2 $const7 	%argrw{"wrr"}
+# rawchicken.osl:8
+#     float k1 = 0.15;
+	assign		k1 $const8 	%line{8} %argrw{"wr"}
+# rawchicken.osl:9
+#     float k2 = 0.55;
+	assign		k2 $const9 	%line{9} %argrw{"wr"}
+# rawchicken.osl:10
+#     float k3 = 0.45;
+	assign		k3 $const10 	%line{10} %argrw{"wr"}
+# rawchicken.osl:12
+#     color c1 = color(0.4, 0.0, 0.00);
+	assign		c1 $const11 	%line{12} %argrw{"wr"}
+# rawchicken.osl:13
+#     color c2 = color(0.5, 0.3, 0.05);
+	assign		c2 $const12 	%line{13} %argrw{"wr"}
+# rawchicken.osl:14
+#     color c3 = color(0.0, 0.5, 0.85);
+	assign		c3 $const13 	%line{14} %argrw{"wr"}
+# rawchicken.osl:16
+#     if (depth == 0)
+	eq		$tmp4 depth $const14 	%line{16} %argrw{"wrr"}
+	if		$tmp4 23 31 	%argrw{"r"}
+# rawchicken.osl:19
+#             k1 * as_subsurface("normalized_diffusion", N, c1, 0.15, 1.3) +
+	assign		$tmp6 $const8 	%line{19} %argrw{"wr"}
+	closure		$tmp5 $const16 $const15 N c1 $tmp6 $const5 	%argrw{"wrrrrrr"}
+	mul		$tmp7 $tmp5 k1 	%argrw{"wrr"}
+# rawchicken.osl:20
+#             k2 * as_subsurface("normalized_diffusion", N, c2, 0.05, 1.3) +
+	assign		$tmp9 $const17 	%line{20} %argrw{"wr"}
+	closure		$tmp8 $const16 $const15 N c2 $tmp9 $const5 	%argrw{"wrrrrrr"}
+	mul		$tmp10 $tmp8 k2 	%argrw{"wrr"}
+# rawchicken.osl:19
+#             k1 * as_subsurface("normalized_diffusion", N, c1, 0.15, 1.3) +
+	add		$tmp11 $tmp7 $tmp10 	%line{19} %argrw{"wrr"}
+# rawchicken.osl:21
+#             k3 * as_subsurface("normalized_diffusion", N, c3, 0.01, 1.3);
+	assign		$tmp13 $const18 	%line{21} %argrw{"wr"}
+	closure		$tmp12 $const16 $const15 N c3 $tmp13 $const5 	%argrw{"wrrrrrr"}
+	mul		$tmp14 $tmp12 k3 	%argrw{"wrr"}
+# rawchicken.osl:20
+#             k2 * as_subsurface("normalized_diffusion", N, c2, 0.05, 1.3) +
+	add		$tmp15 $tmp11 $tmp14 	%line{20} %argrw{"wrr"}
+# rawchicken.osl:21
+#             k3 * as_subsurface("normalized_diffusion", N, c3, 0.01, 1.3);
+	add		Ci Ci $tmp15 	%line{21} %argrw{"wrr"}
+# rawchicken.osl:25
+#         Ci += (k1 * c1 + k2 * c2 * + k3 * c3) * diffuse(N);
+	closure		$tmp16 $const19 N 	%line{25} %argrw{"wrr"}
+	mul		$tmp17 k1 c1 	%argrw{"wrr"}
+	mul		$tmp18 k2 c2 	%argrw{"wrr"}
+	mul		$tmp19 $tmp18 k3 	%argrw{"wrr"}
+	mul		$tmp20 $tmp19 c3 	%argrw{"wrr"}
+	add		$tmp21 $tmp17 $tmp20 	%argrw{"wrr"}
+	mul		$tmp22 $tmp16 $tmp21 	%argrw{"wrr"}
+	add		Ci Ci $tmp22 	%argrw{"wrr"}
+	end
