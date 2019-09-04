@@ -1,0 +1,4 @@
+Instructions:
+
+  1. Download Emily_2_1_Textures.zip from http://gl.ict.usc.edu/Research/DigitalEmily2/
+  2. Unzip Emily_2_1_Textures.zip here, without the top-level Textures/ directory.
